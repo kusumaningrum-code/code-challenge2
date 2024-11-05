@@ -21,7 +21,7 @@ const Home = () => {
 
         <div className="logo">
           <Image
-            src="/images/logo0.png"
+            src="/logo0.png"
             alt="De La Reina Logo"
             width={100}
             height={100}
@@ -52,7 +52,7 @@ const Home = () => {
         <div className="bg-transparent">
           <Image
             className="bg-transparent"
-            src="/images/logo0.png"
+            src="/logo0.png"
             alt="De La Reina Logo"
             width={300}
             height={300}
@@ -97,7 +97,7 @@ const Home = () => {
         </div>
         <div>
           <img
-            src="/images/dressw.png"
+            src="/dressw.png"
             alt="De La Reina Product"
             width={200}
             height={200}
@@ -109,7 +109,7 @@ const Home = () => {
       <section className="flex items-center justify-center bg-pink-200 p-8 h-[50vh]">
         <div className="mr-8">
           <Image
-            src="/images/fam.png" // Ensure this path is correct
+            src="/fam.png" // Ensure this path is correct
             alt="Vintage Inspiration"
             width={250}
             height={250}
