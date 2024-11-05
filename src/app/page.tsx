@@ -54,8 +54,8 @@ const Home = () => {
             className="bg-transparent"
             src="/logo0.png"
             alt="De La Reina Logo"
-            width={300}
-            height={300}
+            width={250}
+            height={250}
           />
         </div>
 
@@ -111,8 +111,8 @@ const Home = () => {
           <Image
             src="/fam.png" // Ensure this path is correct
             alt="Vintage Inspiration"
-            width={250}
-            height={250}
+            width={220}
+            height={220}
             className="rounded-lg shadow-lg"
           />
         </div>
