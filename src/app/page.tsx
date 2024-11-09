@@ -1,4 +1,3 @@
-// src/pages/index.tsx
 import Image from "next/image";
 import Link from "next/link";
 
@@ -14,7 +13,7 @@ const Home = () => {
           <Link href="#" className="text-lg font-bold text-[#5e4d54]">
             Blog
           </Link>
-          <Link href="#" className="text-lg font-bold text-[#5e4d54]">
+          <Link href="/produk" className="text-lg font-bold text-[#5e4d54]">
             Our Products
           </Link>
         </div>
@@ -70,7 +69,7 @@ const Home = () => {
             just for you.
           </p>
           <Link
-            href="#"
+            href="/produk"
             className="px-6 py-3 bg-pink-300 text-[#4d2b2b] font-bold rounded hover:bg-pink-400 transition-colors"
           >
             See Products
