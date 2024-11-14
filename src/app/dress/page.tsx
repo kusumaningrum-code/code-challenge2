@@ -115,10 +115,6 @@ const Dresses = () => {
     setSelectedDress(null);
   };
 
-  const handleImageClick = (image: string) => {
-    setSelectedImage(image);
-  };
-
   const handleCloseImagePopup = () => {
     setSelectedImage(null);
   };

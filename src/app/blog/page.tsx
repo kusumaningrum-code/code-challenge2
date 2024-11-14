@@ -3,9 +3,26 @@ import React, { useState, useEffect } from "react";
 import { fetchBlogPosts } from "../../../lib/contentful";
 import Navbar from "@/components/Navbar";
 
+interface BodyContent {
+  content: Array<{
+    content: Array<{ value: string }>;
+  }>;
+}
+
+interface BlogPost {
+  sys: {
+    id: string;
+  };
+  fields: {
+    title: string;
+    slug: string;
+    body: BodyContent;
+  };
+}
+
 const BlogPostPage = () => {
-  const [blogPosts, setBlogPosts] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const loadBlogPosts = async () => {
@@ -43,7 +60,7 @@ const BlogPostPage = () => {
       <div className="container mx-auto mt-8 p-4">
         <h2 className="text-3xl font-bold mb-4">Latest Blog Posts</h2>
         <ul>
-          {blogPosts.map((entry: any) => (
+          {blogPosts.map((entry) => (
             <li key={entry.sys.id} className="mb-4">
               <a
                 href={`/blog/${entry.fields.slug}`}

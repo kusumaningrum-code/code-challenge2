@@ -5,10 +5,30 @@ import { useState, useEffect } from "react";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 
+interface Person {
+  name: {
+    first: string;
+    last: string;
+  };
+  picture: {
+    medium: string;
+  };
+  location: {
+    city: string;
+    country: string;
+  };
+  email: string;
+  phone: string;
+}
+
+interface Data {
+  results: Person[];
+}
+
 const Tim = () => {
-  const [data, setData] = useState({ results: [{}] } as any);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [data, setData] = useState<Data>({ results: [] });
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,7 +74,7 @@ const Tim = () => {
 
         {/* Carousel Container */}
         <div className="flex flex-col sm:flex-row sm:space-x-8 sm:overflow-x-auto sm:justify-center sm:space-x-6 md:space-x-8">
-          {data.results.map((person: any, index: number) => (
+          {data.results.map((person, index) => (
             <div
               key={index}
               className="bg-white p-6 rounded-lg shadow-lg w-72 mx-auto sm:w-72 sm:mx-0 mb-8 sm:mb-0 text-center"

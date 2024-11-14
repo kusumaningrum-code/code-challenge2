@@ -1,5 +1,5 @@
 import { Document } from "@contentful/rich-text-types";
-import { Entry, EntrySkeletonType } from "contentful";
+import { EntrySkeletonType } from "contentful";
 
 export interface PostFields {
   title: string;
