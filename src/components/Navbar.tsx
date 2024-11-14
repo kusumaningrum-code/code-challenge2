@@ -86,14 +86,14 @@ const Navbar = () => {
       {menuOpen && (
         <div className="sm:hidden flex flex-col items-center bg-white absolute top-full left-0 w-full border-t border-gray-200 shadow-lg">
           <Link
-            href="#"
+            href="/"
             className="py-2 text-sm font-bold text-[#5e4d54]"
             onClick={() => setMenuOpen(false)}
           >
             Home
           </Link>
           <Link
-            href="#"
+            href="/blog"
             className="py-2 text-sm font-bold text-[#5e4d54]"
             onClick={() => setMenuOpen(false)}
           >
