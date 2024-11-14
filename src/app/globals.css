@@ -19,3 +19,36 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 } */
+.felipa-regular {
+  font-family: "Felipa", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.doto-x {
+  font-family: "Doto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+}
+.bonheur-royale-regular {
+  font-family: "Bonheur Royale", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+.charm-regular {
+  font-family: "Charm", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.charm-bold {
+  font-family: "Charm", cursive;
+  font-weight: 700;
+  font-style: normal;
+}
+.marck-script-regular {
+  font-family: "Marck Script", cursive;
+  font-weight: 400;
+  font-style: normal;
+}

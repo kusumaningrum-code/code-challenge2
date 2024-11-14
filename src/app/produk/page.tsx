@@ -1,47 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 const ProductCategories = () => {
   return (
     <div>
       {/* Navbar */}
-      <nav className="flex justify-between items-center bg-pink-100 bg-opacity-80 px-6 py-4 sticky top-0 z-50">
-        <div className="flex gap-4">
-          <Link href="/" className="text-lg font-bold text-[#5e4d54]">
-            Home
-          </Link>
-          <Link href="#" className="text-lg font-bold text-[#5e4d54]">
-            Blog
-          </Link>
-          <Link
-            href="/produk"
-            className="text-lg font-bold text-[#5e4d54] hover:text-red-700"
-          >
-            Our Products
-          </Link>
-        </div>
-
-        <div className="logo">
-          <Image
-            src="/logo0.png"
-            alt="De La Reina Logo"
-            width={100}
-            height={100}
-          />
-        </div>
-
-        <div className="flex gap-4">
-          <Link href="#" className="text-lg font-bold text-[#5e4d54]">
-            Purchase
-          </Link>
-          <Link href="#" className="text-lg font-bold text-[#5e4d54]">
-            Review
-          </Link>
-          <Link href="#" className="text-lg font-bold text-[#5e4d54]">
-            Our Team
-          </Link>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Hero Section */}
       <section
@@ -62,8 +27,10 @@ const ProductCategories = () => {
         </div>
 
         <div className="bg-white bg-opacity-70 p-12 rounded-lg shadow-lg text-center max-w-xl">
-          <h1 className="text-3xl font-bold mb-4">Our Product Categories</h1>
-          <p className="text-lg mb-6">
+          <h1 className="charm-bold text-4xl font-extrabold mb-4">
+            Our Product Categories
+          </h1>
+          <p className=" charm-regular text-lg mb-6">
             Explore our curated collection of timeless vintage pieces. From
             dresses to accessories, find the perfect category to start your
             vintage lifestyle.
@@ -82,8 +49,10 @@ const ProductCategories = () => {
             height={300}
             className="rounded-lg mb-4"
           />
-          <h3 className="text-2xl font-semibold mb-2 text-pink-800">Dresses</h3>
-          <p className="text-lg mb-4 text-pink-800">
+          <h3 className="charm-bold text-2xl font-semibold mb-2 text-pink-800">
+            Dresses
+          </h3>
+          <p className="charm-regular text-lg mb-4 text-pink-800">
             Explore our elegant vintage dresses for every occasion.
           </p>
           <Link
@@ -103,14 +72,14 @@ const ProductCategories = () => {
             height={300}
             className="rounded-lg mb-4"
           />
-          <h3 className="text-2xl font-semibold mb-2 text-pink-800">
+          <h3 className="charm-bold text-2xl font-semibold mb-2 text-pink-800">
             Accessories
           </h3>
-          <p className="text-lg mb-4 text-pink-800">
+          <p className="charm-regular text-lg mb-4 text-pink-800">
             Add a vintage touch to any outfit with our stunning accessories.
           </p>
           <Link
-            href="/category/accessories"
+            href="/aksesori"
             className="text-pink-500 font-bold hover:text-pink-700"
           >
             View Accessories
@@ -126,20 +95,22 @@ const ProductCategories = () => {
             height={300}
             className="rounded-lg mb-4"
           />
-          <h3 className="text-2xl font-semibold mb-2 text-pink-800">
-            Tops & Blouses
+          <h3 className="charm-bold text-2xl font-semibold mb-2 text-pink-800">
+            Tops
           </h3>
-          <p className="text-lg mb-4 text-pink-800">
-            Find vintage tops and blouses that bring elegance and charm.
+          <p className="charm-regular text-lg mb-4 text-pink-800">
+            Find vintage tops that bring elegance, charm and flexibility to mix
+            it with bottoms of your choice.
           </p>
           <Link
-            href="/category/tops-blouses"
+            href="/top"
             className="text-pink-500 font-bold hover:text-pink-700"
           >
             View Tops & Blouses
           </Link>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };
