@@ -19,7 +19,6 @@ const getBlogs = async (slug: string) => {
 
 // Default async page component for dynamic route
 export default async function Page({ params }: { params: { slug: string } }) {
-  // Fetch the blog data based on the slug
   const blog = await getBlogs(params.slug);
 
   return (
