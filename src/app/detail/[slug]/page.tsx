@@ -18,6 +18,7 @@ const getBlogs = async (slug: string) => {
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const blog = await getBlogs(params.slug);
+
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Navbar */}
@@ -42,7 +43,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
             {blog?.fields.title}
           </h1>
           <div className="prose lg:prose-xl">
-            {/* Render the Rich Text content */}
             <RichText document={blog?.fields.body} />
           </div>
         </div>
