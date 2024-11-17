@@ -4,6 +4,7 @@ import RichText from "@/views/components/richText";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
+// Fetch blog data using the provided slug
 const getBlogs = async (slug: string) => {
   try {
     const blogs = await contentfulClient.getEntries<TypeBlogPostSkeleton>({
@@ -16,11 +17,9 @@ const getBlogs = async (slug: string) => {
   }
 };
 
-interface PageProps {
-  params: { slug: string };
-}
-
-export default async function Page({ params }: PageProps) {
+// Default async page component for dynamic route
+export default async function Page({ params }: { params: { slug: string } }) {
+  // Fetch the blog data based on the slug
   const blog = await getBlogs(params.slug);
 
   return (
