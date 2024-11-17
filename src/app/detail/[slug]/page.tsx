@@ -1,34 +1,30 @@
 import contentfulClient from "../../../../lib/contentfulClient";
 import { Entry } from "contentful";
 import { TypeBlogPostSkeleton, TypeBlogPostAsset } from "@/types/blog.types";
-import { Document } from "@contentful/rich-text-types";
+import { Document } from "@contentful/rich-text-types"; // Import Contentful's Document type
 import RichText from "@/views/components/richText";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
+// Type for the Params
 type Params = Promise<{ slug: string }>;
 
-const isDocument = (body: unknown): body is Document => {
-  return (
-    typeof body === "object" &&
-    body !== null &&
-    "nodeType" in body &&
-    "content" in body &&
-    "data" in body
-  );
-};
+// Type guard to check if an object contains the "document" field
+function isDocumentObject(body: unknown): body is { document: Document } {
+  return typeof body === "object" && body !== null && "document" in body;
+}
 
-// Extract Document from the body if possible
+// Extract Document from body safely
 const extractDocument = (body: unknown): Document | undefined => {
-  if (isDocument(body)) {
-    return body; // If the body is a Document, return it
-  } else if (body && typeof body === "object" && "document" in body) {
-    // If body has a document field, extract it
-    return (body as { document?: Document }).document;
+  if (isDocumentObject(body)) {
+    return body.document; // Return the document if the object has the document field
   }
-  return undefined; // Return undefined if no valid Document found
+
+  // If body is already a Document or if the body doesn't have the document field, return it
+  return body as Document | undefined;
 };
 
+// Fetch Blog Post by Slug
 const getBlog = async (
   slug: string
 ): Promise<Entry<TypeBlogPostSkeleton> | undefined> => {
@@ -37,13 +33,15 @@ const getBlog = async (
       content_type: "blogPost",
       "fields.slug[match]": slug,
     });
-    return blogs.items[0];
+
+    return blogs.items[0]; // Return the first item if available
   } catch (error) {
     console.error("Error fetching blog:", error);
     return undefined;
   }
 };
 
+// Metadata generation function
 export async function generateMetadata({ params }: { params: Params }) {
   const resolvedParams = await params;
   const { slug } = resolvedParams;
@@ -51,10 +49,11 @@ export async function generateMetadata({ params }: { params: Params }) {
   const blog = await getBlog(slug);
 
   return {
-    title: blog ? blog.fields.title : "Blog Not Found",
+    title: blog ? blog.fields.title : "Blog Not Found", // Set metadata title
   };
 }
 
+// Main Page component
 export default async function Page({
   params,
 }: {
@@ -65,6 +64,7 @@ export default async function Page({
 
   const blog = await getBlog(slug);
 
+  // Handle case where blog post is not found
   if (!blog) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
@@ -75,13 +75,16 @@ export default async function Page({
     );
   }
 
+  // Extract the image URL and title from the blog data
   const imageUrl =
     (blog.fields.image as TypeBlogPostAsset)?.fields.file.url || "";
   const title = typeof blog.fields.title === "string" ? blog.fields.title : "";
-  const body = blog.fields.body;
+  const body = blog.fields.body; // Content field
 
-  const documentBody = extractDocument(body);
+  // Use the extractDocument function to handle both cases (object with document or Document directly)
+  const documentBody: Document | undefined = extractDocument(body);
 
+  // If documentBody is missing, show an error message
   if (!documentBody) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
