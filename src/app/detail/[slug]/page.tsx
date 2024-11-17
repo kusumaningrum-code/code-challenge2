@@ -4,10 +4,11 @@ import RichText from "@/views/components/richText";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const getBlogs = async () => {
+const getBlogs = async (slug: string) => {
   try {
     const blogs = await contentfulClient.getEntries<TypeBlogPostSkeleton>({
       content_type: "blogPost",
+      "fields.slug[match]": slug,
     });
     return blogs.items[0];
   } catch (error) {
@@ -15,8 +16,8 @@ const getBlogs = async () => {
   }
 };
 
-export default async function Page() {
-  const blog = await getBlogs();
+export default async function Page({ params }: { params: { slug: string } }) {
+  const blog = await getBlogs(params.slug);
 
   return (
     <div className="min-h-screen bg-gray-100">
