@@ -7,7 +7,7 @@ const ProductCategories = () => {
       {/* Navbar */}
       <nav className="flex justify-between items-center bg-pink-100 bg-opacity-80 px-6 py-4 sticky top-0 z-50">
         <div className="flex gap-4">
-          <Link href="#" className="text-lg font-bold text-[#5e4d54]">
+          <Link href="/" className="text-lg font-bold text-[#5e4d54]">
             Home
           </Link>
           <Link href="#" className="text-lg font-bold text-[#5e4d54]">
