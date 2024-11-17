@@ -25,11 +25,9 @@ const RichText: React.FC<{ document: Document }> = ({ document }) => {
   return <div>{documentToReactComponents(document)}</div>;
 };
 
-const Page = ({
-  blog,
-}: {
-  blog: Entry<TypeBlogPostSkeleton> | undefined;
-}): JSX.Element => {
+export default async function Page({ params }: { params: { slug: string } }) {
+  const blog = await getBlogs(params.slug);
+
   if (!blog) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
@@ -68,21 +66,4 @@ const Page = ({
       <Footer />
     </div>
   );
-};
-
-export async function getServerSideProps({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const blog = await getBlogs(params.slug);
-
-  // Return
-  return {
-    props: {
-      blog,
-    },
-  };
 }
-
-export default Page;
