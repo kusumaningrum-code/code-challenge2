@@ -6,6 +6,12 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Document } from "@contentful/rich-text-types";
 
+type PageProps = {
+  params: {
+    slug: string;
+  };
+};
+
 const getBlogs = async (
   slug: string
 ): Promise<Entry<TypeBlogPostSkeleton> | undefined> => {
@@ -23,9 +29,7 @@ const getBlogs = async (
 
 export default async function Page({
   params,
-}: {
-  params: { slug: string };
-}): Promise<JSX.Element> {
+}: PageProps): Promise<JSX.Element> {
   const blog = await getBlogs(params.slug);
 
   if (!blog) {
