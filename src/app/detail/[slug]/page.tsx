@@ -43,6 +43,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
             {blog?.fields.title}
           </h1>
           <div className="prose lg:prose-xl">
+            {/* Render Rich Text content */}
             <RichText document={blog?.fields.body} />
           </div>
         </div>
