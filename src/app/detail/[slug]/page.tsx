@@ -12,11 +12,15 @@ const getBlogs = async (slug: string) => {
     });
     return blogs.items[0];
   } catch (error) {
-    console.log(error);
+    console.error("Error fetching blog:", error);
   }
 };
 
-export default async function Page({ params }: { params: { slug: string } }) {
+interface PageProps {
+  params: { slug: string };
+}
+
+export default async function Page({ params }: PageProps) {
   const blog = await getBlogs(params.slug);
 
   return (
@@ -43,7 +47,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
             {blog?.fields.title}
           </h1>
           <div className="prose lg:prose-xl">
-            {/* Render Rich Text content */}
             <RichText document={blog?.fields.body} />
           </div>
         </div>
