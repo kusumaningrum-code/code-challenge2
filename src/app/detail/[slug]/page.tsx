@@ -16,7 +16,13 @@ const getBlogs = async (slug: string) => {
   }
 };
 
-export default async function Page({ params }: { params: { slug: string } }) {
+interface PageProps {
+  params: {
+    slug: string;
+  };
+}
+
+export default async function Page({ params }: PageProps) {
   const blog = await getBlogs(params.slug);
 
   return (
