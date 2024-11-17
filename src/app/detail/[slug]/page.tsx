@@ -1,8 +1,8 @@
 import contentfulClient from "../../../../lib/contentfulClient";
 import { Entry } from "contentful";
 import { TypeBlogPostSkeleton, TypeBlogPostAsset } from "@/types/blog.types";
-import { Document } from "@contentful/rich-text-types"; // Import Document type for rich text
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer"; // Import function to render rich text
+import { Document } from "@contentful/rich-text-types";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -25,13 +25,11 @@ const RichText: React.FC<{ document: Document }> = ({ document }) => {
   return <div>{documentToReactComponents(document)}</div>;
 };
 
-export default async function Page({
-  params,
+const Page = ({
+  blog,
 }: {
-  params: { slug: string };
-}): Promise<JSX.Element> {
-  const blog = await getBlogs(params.slug);
-
+  blog: Entry<TypeBlogPostSkeleton> | undefined;
+}): JSX.Element => {
   if (!blog) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
@@ -70,4 +68,21 @@ export default async function Page({
       <Footer />
     </div>
   );
+};
+
+export async function getServerSideProps({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const blog = await getBlogs(params.slug);
+
+  // Return
+  return {
+    props: {
+      blog,
+    },
+  };
 }
+
+export default Page;
