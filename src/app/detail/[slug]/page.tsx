@@ -4,6 +4,7 @@ import { TypeBlogPostSkeleton, TypeBlogPostAsset } from "@/types/blog.types";
 import RichText from "@/views/components/richText";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Document } from "@contentful/rich-text-types";
 
 const getBlogs = async (
   slug: string
@@ -42,6 +43,16 @@ export default async function Page({
   const title = typeof blog.fields.title === "string" ? blog.fields.title : "";
   const body = blog.fields.body;
 
+  const isDocument = (data: unknown): data is Document => {
+    return (
+      typeof data === "object" &&
+      data !== null &&
+      "nodeType" in data &&
+      "content" in data &&
+      "data" in data
+    );
+  };
+
   return (
     <div className="min-h-screen bg-gray-100">
       <Navbar />
@@ -58,7 +69,11 @@ export default async function Page({
         <div className="w-full lg:w-2/3">
           <h1 className="text-3xl font-bold text-gray-800 mb-4">{title}</h1>
           <div className="prose lg:prose-xl">
-            {body && <RichText document={body as any} />}
+            {isDocument(body) ? (
+              <RichText document={body} />
+            ) : (
+              <p>Invalid content format.</p>
+            )}
           </div>
         </div>
       </div>
