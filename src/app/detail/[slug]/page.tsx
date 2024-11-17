@@ -4,9 +4,10 @@ import { TypeBlogPostSkeleton, TypeBlogPostAsset } from "@/types/blog.types";
 import RichText from "@/views/components/richText";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Document } from "@contentful/rich-text-types";
 
-const getBlogs = async (
+type Params = Promise<{ slug: string }>;
+
+const getBlog = async (
   slug: string
 ): Promise<Entry<TypeBlogPostSkeleton> | undefined> => {
   try {
@@ -21,12 +22,26 @@ const getBlogs = async (
   }
 };
 
+export async function generateMetadata({ params }: { params: Params }) {
+  const resolvedParams = await params;
+  const { slug } = resolvedParams;
+
+  const blog = await getBlog(slug);
+
+  return {
+    title: blog ? blog.fields.title : "Blog Not Found",
+  };
+}
+
 export default async function Page({
   params,
 }: {
-  params: { slug: string };
+  params: Params;
 }): Promise<JSX.Element> {
-  const blog = await getBlogs(params.slug);
+  const resolvedParams = await params;
+  const { slug } = resolvedParams;
+
+  const blog = await getBlog(slug);
 
   if (!blog) {
     return (
@@ -42,16 +57,6 @@ export default async function Page({
     (blog.fields.image as TypeBlogPostAsset)?.fields.file.url || "";
   const title = typeof blog.fields.title === "string" ? blog.fields.title : "";
   const body = blog.fields.body;
-
-  const isDocument = (data: unknown): data is Document => {
-    return (
-      typeof data === "object" &&
-      data !== null &&
-      "nodeType" in data &&
-      "content" in data &&
-      "data" in data
-    );
-  };
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -69,11 +74,7 @@ export default async function Page({
         <div className="w-full lg:w-2/3">
           <h1 className="text-3xl font-bold text-gray-800 mb-4">{title}</h1>
           <div className="prose lg:prose-xl">
-            {isDocument(body) ? (
-              <RichText document={body} />
-            ) : (
-              <p>Invalid content format.</p>
-            )}
+            {body && <RichText document={body as any} />}
           </div>
         </div>
       </div>
