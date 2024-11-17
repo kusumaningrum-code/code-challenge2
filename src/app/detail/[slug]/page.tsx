@@ -1,11 +1,19 @@
 import contentfulClient from "../../../../lib/contentfulClient";
 import { Entry } from "contentful";
 import { TypeBlogPostSkeleton, TypeBlogPostAsset } from "@/types/blog.types";
+import { Document } from "@contentful/rich-text-types"; // Import Contentful's Document type
 import RichText from "@/views/components/richText";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 type Params = Promise<{ slug: string }>;
+
+const extractDocument = (body: any): Document | undefined => {
+  if (body && typeof body === "object") {
+    return body.document || body;
+  }
+  return body as Document | undefined;
+};
 
 const getBlog = async (
   slug: string
@@ -58,6 +66,18 @@ export default async function Page({
   const title = typeof blog.fields.title === "string" ? blog.fields.title : "";
   const body = blog.fields.body;
 
+  const documentBody = extractDocument(body);
+
+  if (!documentBody) {
+    return (
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+        <h1 className="text-2xl font-semibold text-gray-600">
+          Invalid blog post content.
+        </h1>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-100">
       <Navbar />
@@ -74,7 +94,7 @@ export default async function Page({
         <div className="w-full lg:w-2/3">
           <h1 className="text-3xl font-bold text-gray-800 mb-4">{title}</h1>
           <div className="prose lg:prose-xl">
-            {body && <RichText document={body as any} />}
+            <RichText document={documentBody} />
           </div>
         </div>
       </div>
