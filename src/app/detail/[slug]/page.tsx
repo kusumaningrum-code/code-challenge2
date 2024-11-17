@@ -1,18 +1,32 @@
 import contentfulClient from "../../../../lib/contentfulClient";
 import { Entry } from "contentful";
 import { TypeBlogPostSkeleton, TypeBlogPostAsset } from "@/types/blog.types";
-import { Document } from "@contentful/rich-text-types"; // Import Contentful's Document type
+import { Document } from "@contentful/rich-text-types";
 import RichText from "@/views/components/richText";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 type Params = Promise<{ slug: string }>;
 
-const extractDocument = (body: any): Document | undefined => {
-  if (body && typeof body === "object") {
-    return body.document || body;
+const isDocument = (body: unknown): body is Document => {
+  return (
+    typeof body === "object" &&
+    body !== null &&
+    "nodeType" in body &&
+    "content" in body &&
+    "data" in body
+  );
+};
+
+// Extract Document from the body if possible
+const extractDocument = (body: unknown): Document | undefined => {
+  if (isDocument(body)) {
+    return body; // If the body is a Document, return it
+  } else if (body && typeof body === "object" && "document" in body) {
+    // If body has a document field, extract it
+    return (body as { document?: Document }).document;
   }
-  return body as Document | undefined;
+  return undefined; // Return undefined if no valid Document found
 };
 
 const getBlog = async (
